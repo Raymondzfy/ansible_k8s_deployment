@@ -1,0 +1,6 @@
+---
+- name: Kubernetes Cluster Configurations Management
+  hosts: localhost
+
+  roles:
+    - k8s_cluster_admin
