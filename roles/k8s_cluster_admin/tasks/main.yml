@@ -17,5 +17,5 @@
         name: my-secret
       stringData:
         username: admin
-        password: mae7stro
-        url: service.ibx.com
+        password: 123456
+        url: service.example.com
