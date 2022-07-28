@@ -1,0 +1,5 @@
+---
+- name: Make sure Helm repo {{ helm_repo.name }} exists in the kubernetes cluster
+  kubernetes.core.helm_repository:
+    name: "{{ helm_repo.name }}"
+    repo_url: "{{ helm_repo.url }}"

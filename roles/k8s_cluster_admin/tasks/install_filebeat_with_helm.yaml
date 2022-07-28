@@ -1,0 +1,14 @@
+---
+- name: Make sure the namespace filebeat exists in the kubernetes cluster
+  k8s:
+    name: filebeat
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Configure filebeat with helm in filebeat namespace
+  kubernetes.core.helm:
+    name: filebeat
+    namespace: filebeat
+    chart_ref: elastic/filebeat
+    chart_version: "{{ filebeat_version | default(omit) }}"

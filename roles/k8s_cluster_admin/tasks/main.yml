@@ -1,21 +1,30 @@
 ---
-- name: Create namespace {{ namespace }} in kubernetes cluster
-  k8s:
-    state: present
-    api_version: v1
-    kind: Namespace
-    name: devops
+- include_tasks: helm_config.yaml
+  loop: "{{ helm_repos }}"
+  loop_control:
+    loop_var: helm_repo
+  when: helm_repos is defined
 
-- name: Create secrets for devops
-  k8s:
-    state: present
-    namespace: devops
-    definition:
-      apiVersion: v1 
-      kind: Secret 
-      metadata:
-        name: my-secret
-      stringData:
-        username: admin
-        password: 123456
-        url: service.example.com
+- include_tasks: install_filebeat_with_helm.yaml
+
+- include_tasks: install_argocd.yaml
+#  - name: Create namespace {{ namespace }} in kubernetes cluster
+#  k8s:
+#    state: present
+#    api_version: v1
+#    kind: Namespace
+#    name: devops
+
+#  - name: Create secrets for devops
+#      k8s:
+#    state: present
+#    namespace: devops
+#    definition:
+#      apiVersion: v1 
+#      kind: Secret 
+#      metadata:
+#        name: my-secret
+#      stringData:
+#        username: admin
+#        password: 123456
+#        url: service.example.com

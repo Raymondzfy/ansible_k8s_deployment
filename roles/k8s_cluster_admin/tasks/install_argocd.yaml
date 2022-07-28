@@ -1,0 +1,19 @@
+---
+- name: Make sure the namespace argocd exists in the kubernetes cluster
+  k8s:
+    name: argocd
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Download argocd installation manifests
+  get_url:
+    url:  https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+    dest: /tmp/argocd-installation.yaml
+    mode: 0644
+
+- name: Install argocd in the kubernetes
+  k8s:
+    state: present
+    namespace: argocd
+    src: /tmp/argocd-installation.yaml
