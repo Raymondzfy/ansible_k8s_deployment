@@ -1,13 +1,15 @@
 ---
-- include_tasks: helm_config.yaml
-  loop: "{{ helm_repos }}"
-  loop_control:
-    loop_var: helm_repo
-  when: helm_repos is defined
+# - include_tasks: helm_config.yaml
+#   loop: "{{ helm_repos }}"
+#   loop_control:
+#     loop_var: helm_repo
+#   when: helm_repos is defined
 
 - include_tasks: install_filebeat_with_helm.yaml
 
-- include_tasks: install_argocd.yaml
+# - include_tasks: install_argocd.yaml
+
+# - include_tasks: install_kube_bench.yaml
 #  - name: Create namespace {{ namespace }} in kubernetes cluster
 #  k8s:
 #    state: present

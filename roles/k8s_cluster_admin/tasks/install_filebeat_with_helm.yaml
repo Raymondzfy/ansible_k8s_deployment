@@ -12,3 +12,12 @@
     namespace: filebeat
     chart_ref: elastic/filebeat
     chart_version: "{{ filebeat_version | default(omit) }}"
+
+- name: check pod status of filebat 
+  k8s_info:
+    kind: Pod 
+    namespace: filebeat
+  register: pod_info
+  retries: 5
+  until:
+    pod_info|json_query('resources[*].status.phase')|unique == ["Running"]
